@@ -1,10 +1,30 @@
 .App {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
   }
   
+  .input-container {
+    position: relative;
+    width: 800px;
+    display: inline-block;
+  }
+
+  .clear-icon {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: none; /* По умолчанию скрываем */
+  }
+  
+  .input-container input[type="text"]:not(:placeholder-shown) + .clear-icon {
+    display: block; /* Показываем крестик, когда в поле ввода есть текст */
+  }
+
   input {
     padding: 10px;
     width: 100%;
@@ -14,6 +34,7 @@
   
   .book-card {
     border: 1px solid #e0e0e0;
+    border-radius: 20px;
     padding: 10px;
     margin-bottom: 20px;
     display: flex;
@@ -21,8 +42,42 @@
   }
   
   .book-card img {
-    max-width: 100px;
+    width: 190px;
+    height: 244px;
     margin-right: 20px;
+    border-radius: 20px;
+  }
+
+  .text-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .title{
+    color: #000000;
+    text-align: left;
+    font: 500 20px/28px 'Roboto', sans-serif;
+    position: relative;
+    width: 178px;
+  }
+
+  .cathegory{
+    color: #000000;
+    text-align: left; 
+    font: 300 20px/28px 'Roboto', sans-serif;
+    position: relative;
+  }
+
+  .author{
+    color: #000000;
+    text-align: left;
+    font: 300 20px/28px 'Roboto', sans-serif;
+    position: relative;
   }
   
   footer {
