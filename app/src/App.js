@@ -1,67 +1,64 @@
-import React, { useState, useEffect } from 'react'; // Добавьте useEffect
+import React, { useState, useEffect } from 'react';
 import './app.css';
 
 function App() {
-  const [query, setQuery] = useState(''); 
+  const [query, setQuery] = useState('');
   const [books, setBooks] = useState([]);
-  const initialQuery = 'Harry Potter'; 
+  const initialQuery = 'Harry Potter';
   
   const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc';
 
-  useEffect(() => {
-    fetchBooks(initialQuery); // Загрузить книги при первой загрузке страницы
-  }, []); 
-
-  const fetchBooks = async () => {
+  const fetchBooks = async (searchQuery) => {
     try {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}`);
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}`);
       const data = await response.json();
-      console.log(response);
-      console.log(data);
-      setBooks(data.items || []);
-    } 
-    catch (error) {
+
+      if (!data.items || data.items.length === 0) {
+        console.log("Результатов не найдено");
+        setBooks([]);
+        return;
+      }
+
+      setBooks(data.items);
+    } catch (error) {
       console.error("Ошибка при загрузке книг:", error);
     }
   };
 
+  useEffect(() => {
+    fetchBooks(initialQuery);
+  }, []);
+
   return (
     <div className="App">
       <h1>Поиск книг</h1>
-      <div className="input-container">
-        <input 
-          type="text" 
-          placeholder="Поиск..." 
-          value={query} 
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              fetchBooks();
-            }
-          }}
-          autoFocus
-        />
-        <span 
-          className="clear-icon" 
-          onClick={() => setQuery('')}
-        >
-          &times; 
-        </span>
-      </div>
+      <input 
+        type="text" 
+        placeholder="Поиск..." 
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            fetchBooks(query);
+          }
+        }}
+      />
       <div className="books">
-        {books.map((book) => (
-          <div key={book.id} className="book-card">
-            <img
-              src={book.volumeInfo.imageLinks?.thumbnail}
-              alt={book.volumeInfo.title}
-            />
-            <div className='text-container'>
-              <div className="title">{book.volumeInfo.title}</div>
-              <div className='cathegory'>{book.volumeInfo.categories ? book.volumeInfo.categories[0] : "Категория не указана"}</div>
-              <div className='author'>{book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Авторы не указаны"}</div>
-            </div> 
-          </div>
-        ))}
+        {books.length === 0 ? (
+          <p>Результатов не найдено</p>
+        ) : (
+          books.map((book) => (
+            <div key={book.id} className="book-card">
+              <img
+                src={book.volumeInfo.imageLinks?.thumbnail}
+                alt={book.volumeInfo.title}
+              />
+              <h2>{book.volumeInfo.title}</h2>
+              <p>{book.volumeInfo.categories ? book.volumeInfo.categories[0] : "Категория не указана"}</p>
+              <p>{book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Авторы не указаны"}</p>
+            </div>
+          ))
+        )}
       </div>
       <footer>
         <a href="https://github.com/morganizwd">GitHub</a>
