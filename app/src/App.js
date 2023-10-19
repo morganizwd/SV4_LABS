@@ -28,17 +28,26 @@ function App() {
   return (
     <div className="App">
       <h1>Поиск книг</h1>
-      <input 
-        type="text" 
-        placeholder="Поиск..." 
-        value={query} 
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            fetchBooks();
-          }
-        }}
-      />
+      <div className="input-container">
+        <input 
+          type="text" 
+          placeholder="Поиск..." 
+          value={query} 
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              fetchBooks();
+            }
+          }}
+          autoFocus
+        />
+        <span 
+          className="clear-icon" 
+          onClick={() => setQuery('')}
+        >
+          &times; 
+        </span>
+      </div>
       <div className="books">
         {books.map((book) => (
           <div key={book.id} className="book-card">
@@ -46,9 +55,11 @@ function App() {
               src={book.volumeInfo.imageLinks?.thumbnail}
               alt={book.volumeInfo.title}
             />
-            <h2>{book.volumeInfo.title}</h2>
-            <p>{book.volumeInfo.categories ? book.volumeInfo.categories[0] : "Категория не указана"}</p>
-            <p>{book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Авторы не указаны"}</p>
+            <div className='text-container'>
+              <div className="title">{book.volumeInfo.title}</div>
+              <div className='cathegory'>{book.volumeInfo.categories ? book.volumeInfo.categories[0] : "Категория не указана"}</div>
+              <div className='author'>{book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Авторы не указаны"}</div>
+            </div> 
           </div>
         ))}
       </div>
