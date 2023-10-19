@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Добавьте useEffect
 import './app.css';
 
 function App() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(''); 
   const [books, setBooks] = useState([]);
+  const initialQuery = 'Harry Potter'; 
   
   const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc';
+
+  useEffect(() => {
+    fetchBooks(initialQuery); // Загрузить книги при первой загрузке страницы
+  }, []); 
 
   const fetchBooks = async () => {
     try {
