@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Бронирование столиков</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js"></script>
 </head>
 <body>
   <div id="app"></div>
@@ -53,13 +54,13 @@
     };
 
     const reservations = [
-      { id: 1, name: 'Столик у окна', time: '19:00', seats: 2, photoUrl: 'url_to_photo_1' },
-      { id: 2, name: 'VIP-столик', time: '20:00', seats: 4, photoUrl: 'url_to_photo_2' },
+      { id: 1, name: 'Столик у окна', time: '19:00', seats: 2, photoUrl: 'https://baldenini.by/media/files/promo/10.jpg' },
+      { id: 2, name: 'VIP-столик', time: '20:00', seats: 4, photoUrl: 'https://proza.ru/pics/2015/09/29/1209.jpg' },
       // добавьте сюда другие объекты бронирования
     ];
 
     ReactDOM.render(
-      e(TableReservation, { organization: 'Ресторан "Приятного аппетита"', reservations }),
+      e(TableReservation, { organization: 'TableTap', reservations }),
       document.getElementById('app')
     );
   </script>
