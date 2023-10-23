@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бронирование столиков</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+  <script>
+    const e = React.createElement;
 
+    const TableReservation = (props) => {
+      const { organization, reservations } = props;
+
+      return e('div', { className: 'reservation-table' },
+        e('h2', null, `Бронирование столиков в ${organization}`),
+        e('table', { border: '1' },
+          e('thead', null,
+            e('tr', null,
+              e('th', null, 'Название'),
+              e('th', null, 'Время'),
+              e('th', null, 'Количество мест'),
+              e('th', null, 'Фото')
+            )
+          ),
+          e('tbody', null,
+            reservations.map(reservation => 
+              e('tr', { key: reservation.id },
+                e('td', null, reservation.name),
+                e('td', null, reservation.time),
+                e('td', null, reservation.seats),
+                e('td', null, e('img', { src: reservation.photoUrl, alt: reservation.name, width: '100' }))
+              )
+            )
+          )
+        )
+      );
+    };
+
+    TableReservation.propTypes = {
+      organization: PropTypes.string.isRequired,
+      reservations: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        time: PropTypes.string.isRequired,
+        seats: PropTypes.number.isRequired,
+        photoUrl: PropTypes.string.isRequired
+      })).isRequired
+    };
+
+    const reservations = [
+      { id: 1, name: 'Столик у окна', time: '19:00', seats: 2, photoUrl: 'url_to_photo_1' },
+      { id: 2, name: 'VIP-столик', time: '20:00', seats: 4, photoUrl: 'url_to_photo_2' },
+      // добавьте сюда другие объекты бронирования
+    ];
+
+    ReactDOM.render(
+      e(TableReservation, { organization: 'Ресторан "Приятного аппетита"', reservations }),
+      document.getElementById('app')
+    );
+  </script>
+</body>
+</html>
