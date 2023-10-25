@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>Бронирование столиков</title>
+  <!-- Подключаем библиотеку PropTypes для проверки типов свойств компонентов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+  <!-- Элемент, в который React будет рендерить наше приложение -->
+  <div id="app"></div> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
   <script>
+    // Создаем алиас для функции createElement для упрощения кода
     const e = React.createElement;
 
+    // Определяем наш компонент TableReservation
     const TableReservation = (props) => {
+      // Деструктуризируем объект props, чтобы получить переменные organization и reservations
       const { organization, reservations } = props;
 
+      // Возвращаем JSX структуру нашего компонента
       return e('div', { className: 'reservation-table' },
         e('h2', null, `Бронирование столиков в ${organization}`),
         e('table', { border: '1' },
@@ -29,11 +37,13 @@
             )
           ),
           e('tbody', null,
+            // Используем метод map для преобразования массива бронирований в JSX
             reservations.map(reservation => 
               e('tr', { key: reservation.id },
                 e('td', null, reservation.name),
                 e('td', null, reservation.time),
                 e('td', null, reservation.seats),
+                // Вставляем изображение
                 e('td', null, e('img', { src: reservation.photoUrl, alt: reservation.name, width: '100' }))
               )
             )
@@ -42,6 +52,7 @@
       );
     };
 
+    // Устанавливаем правила для проверки типов свойств нашего компонента
     TableReservation.propTypes = {
       organization: PropTypes.string.isRequired,
       reservations: PropTypes.arrayOf(PropTypes.shape({
@@ -53,12 +64,13 @@
       })).isRequired
     };
 
+    // Массив объектов бронирований
     const reservations = [
       { id: 1, name: 'Столик у окна', time: '19:00', seats: 2, photoUrl: 'https://baldenini.by/media/files/promo/10.jpg' },
-      { id: 2, name: 'VIP-столик', time: '20:00', seats: 4, photoUrl: 'https://proza.ru/pics/2015/09/29/1209.jpg' },
-      // добавьте сюда другие объекты бронирования
+      { id: 2, name: 'VIP-столик', time: '20:00', seats: 4, photoUrl: 'https://proza.ru/pics/2015/09/29/1209.jpg' }, 
     ];
 
+    // Рендерим наш компонент в элемент с id="app"
     ReactDOM.render(
       e(TableReservation, { organization: 'TableTap', reservations }),
       document.getElementById('app')
