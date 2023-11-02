@@ -27,7 +27,7 @@
     color: #666;
   }
   
-  /* Адаптация для мобильных устройств */
+
   @media (max-width: 600px) {
     .bookItem {
       padding: 12px;

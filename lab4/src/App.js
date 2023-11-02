@@ -10,7 +10,7 @@ function App() {
   const [query, setQuery] = useState('Harry Potter');
   const [books, setBooks] = useState([]);
 
-  const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc'; // Используй свой API ключ
+  const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc'; 
 
   const fetchBooks = async (searchQuery) => {
     try {
@@ -31,12 +31,12 @@ function App() {
 
   useEffect(() => {
     fetchBooks(query);
-  }, [query]); // Выполнять fetchBooks при изменении запроса
+  }, [query]); 
 
   return (
     <div className="App">
       <Header />
-      <SearchBar onSearch={setQuery} /> {/* Мы просто обновляем состояние запроса */}
+      <SearchBar onSearch={setQuery} /> {}
       <BookList books={books} />
       <Footer />
     </div>

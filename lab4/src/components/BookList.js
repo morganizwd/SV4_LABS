@@ -1,6 +1,6 @@
 import React from 'react';
 import BookItem from './BookItem';
-import styles from './BookList.module.css'; // Импортируем наш CSS-модуль
+import styles from './BookList.module.css'; 
 
 function BookList({ books }) {
   return (
