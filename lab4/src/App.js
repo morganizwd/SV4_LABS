@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar';
+import BookList from './components/BookList';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import './App.css'; // Импорт CSS для адаптивного дизайна
 
 function App() {
+  const [books, setBooks] = useState([]);
+
+  const searchBooks = async (query) => {
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+    const data = await response.json();
+    setBooks(data.items || []);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <SearchBar onSearch={searchBooks} />
+      <BookList books={books} />
+      <Footer />
     </div>
   );
 }
