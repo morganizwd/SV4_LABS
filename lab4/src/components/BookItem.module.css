@@ -1,0 +1,40 @@
+/* BookItem.module.css */
+.bookItem {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .bookTitle {
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+    color: #333;
+  }
+  
+  .bookImage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .bookAuthors {
+    margin: 0;
+    font-style: italic;
+    color: #666;
+  }
+  
+  /* Адаптация для мобильных устройств */
+  @media (max-width: 600px) {
+    .bookItem {
+      padding: 12px;
+    }
+  
+    .bookTitle {
+      font-size: 1rem;
+    }
+  }
+  

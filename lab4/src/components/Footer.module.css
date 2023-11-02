@@ -1,0 +1,18 @@
+/* Footer.module.css */
+.footer {
+    background-color: #f8f9fa; /* светлый фон, можно адаптировать под ваш дизайн */
+    color: #6c757d; /* цвет текста, можно адаптировать под ваш дизайн */
+    text-align: center;
+    padding: 10px 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #dee2e6; /* легкая граница сверху */
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      padding: 20px 10px;
+    }
+  }
+  

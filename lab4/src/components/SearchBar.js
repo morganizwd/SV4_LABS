@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 
 function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const handleSearch = () => {
-    onSearch(query);
+    onSearch(inputValue);
   };
 
   return (
     <div>
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         placeholder="Search for books"
+        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
       />
       <button onClick={handleSearch}>Search</button>
     </div>
