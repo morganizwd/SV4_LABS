@@ -2,8 +2,19 @@
     display: flex;
     justify-content: center;
     margin: 20px;
-  }
+  } 
   
+  .clearButton {
+    position: relative;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    top: 32px;
+    right: 40px
+  } 
+
   .searchInput {
     flex-grow: 1;
     padding: 10px;

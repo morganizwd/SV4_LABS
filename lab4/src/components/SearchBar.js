@@ -21,6 +21,10 @@ class SearchBar extends React.Component {
     }
   };
 
+  clearInput = () => {
+    this.setState({ inputValue: '' });
+  };
+
   render() {
     return (
       <div className={styles.searchBarContainer}>
@@ -32,6 +36,14 @@ class SearchBar extends React.Component {
           placeholder="Search for books"
           onKeyPress={this.handleKeyPress}
         />
+        {this.state.inputValue && (
+          <button
+            className={styles.clearButton}
+            onClick={this.clearInput}
+          >
+            X
+          </button>
+        )}
         <button
           className={styles.searchButton}
           onClick={this.handleSearch}
@@ -43,4 +55,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default SearchBar; 

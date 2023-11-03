@@ -41,8 +41,7 @@ class App extends React.Component {
     this.setState({ query: searchQuery }, () => {
       this.fetchBooks(this.state.query);
     });
-  }
-  
+  }   
 
   render() {
     return (
