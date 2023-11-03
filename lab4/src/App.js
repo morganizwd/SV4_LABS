@@ -1,46 +1,56 @@
-// App.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SearchBar from './components/SearchBar';
 import BookList from './components/BookList';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
 
-function App() {
-  const [query, setQuery] = useState('Harry Potter');
-  const [books, setBooks] = useState([]);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: 'Harry Potter',
+      books: [],
+    };
+  }
 
-  const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc'; 
+  componentDidMount() {
+    this.fetchBooks(this.state.query);
+  }
 
-  const fetchBooks = async (searchQuery) => {
+  fetchBooks = async (searchQuery) => {
+    const API_KEY = 'AIzaSyDDSwsmp9VSXi_OkoTm6tCHH9fM3zFNBmc';
+    
     try {
       const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&key=${API_KEY}`);
       const data = await response.json();
 
       if (!data.items || data.items.length === 0) {
         console.log("Результатов не найдено");
-        setBooks([]);
+        this.setState({ books: [] });
         return;
       }
 
-      setBooks(data.items);
+      this.setState({ books: data.items });
     } catch (error) {
       console.error("Ошибка при загрузке книг:", error);
     }
   };
 
-  useEffect(() => {
-    fetchBooks(query);
-  }, [query]); 
+  handleSearch = (searchQuery) => {
+    this.setState({ query: searchQuery });
+  }
 
-  return (
-    <div className="App">
-      <Header />
-      <SearchBar onSearch={setQuery} /> {}
-      <BookList books={books} />
-      <Footer />
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <SearchBar onSearch={this.handleSearch} />
+        <BookList books={this.state.books} />
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default App; 

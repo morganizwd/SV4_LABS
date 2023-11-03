@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './SearchBar.module.css';
 
-function SearchBar({ onSearch }) {
-  const [inputValue, setInputValue] = useState('');
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { inputValue: '' };
+  }
 
-  const handleSearch = () => {
-    onSearch(inputValue.trim());
+  handleSearch = () => {
+    this.props.onSearch(this.state.inputValue.trim());
   };
 
-  return (
-    <div className={styles.searchBarContainer}>
-      <input
-        className={styles.searchInput}
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Search for books"
-        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-      />
-      <button
-        className={styles.searchButton}
-        onClick={handleSearch}
-      >
-        Search
-      </button>
-    </div>
-  );
+  updateInputValue = (e) => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleSearch();
+    }
+  };
+
+  render() {
+    return (
+      <div className={styles.searchBarContainer}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          value={this.state.inputValue}
+          onChange={this.updateInputValue}
+          placeholder="Search for books"
+          onKeyPress={this.handleKeyPress}
+        />
+        <button
+          className={styles.searchButton}
+          onClick={this.handleSearch}
+        >
+          Search
+        </button>
+      </div>
+    );
+  }
 }
 
 export default SearchBar;
