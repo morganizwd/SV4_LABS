@@ -1,13 +1,16 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 function Header() {
     return (
         <div className="header">
             <ul>
-                <li><strong>Все под контролем</strong></li>
+                <li><strong>Все под контролем, брат</strong></li>
             </ul>
             <ul>
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#products">Продукция</a></li>
-                <li><a href="#quality-control">Контроль качества</a></li>
+                <li><Link to="/">Главная</Link></li>
+                <li><Link to="/certification-services">Продукция</Link></li>
+                <li><Link to="/quality-control">Контроль качества</Link></li>
             </ul>
         </div>
     );
