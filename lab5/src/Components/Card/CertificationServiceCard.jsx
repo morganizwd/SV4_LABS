@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Popout from '../PopoutWindow/Popout';
+import './style.css'
 
 function CertificationServiceCard({ service }) {
     const [isPopoutOpen, setIsPopoutOpen] = useState(false);

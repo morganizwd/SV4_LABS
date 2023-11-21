@@ -1,0 +1,71 @@
+.service-card {
+  border: 1px solid #ddd; /* Adjust the color to fit your design */
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* This adds a slight shadow effect on hover */
+}
+
+/* Adjust the image size to be smaller */
+.service-image { 
+  max-width: 10%;
+  max-height: 10%; /* Set a max-height for the image */
+  object-fit: fill; /* Adjusts the image size to cover the area without stretching */
+}
+
+.service-content {
+  padding: 1rem;
+  text-align: center;
+  flex: 1; /* Makes the content flex to fill the available space */
+}
+
+.service-title {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #0044cc; /* Adjust the title color to fit your design */
+}
+
+.service-description {
+  font-size: 0.9rem; /* Adjust the font size to fit your design */
+  color: #666; /* Adjust the text color to fit your design */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .service-card {
+    flex-direction: row;
+  }
+
+  .service-image {
+    width: 25%; /* Smaller width for medium screens */
+    height: auto; /* Adjust height to maintain aspect ratio */
+  }
+
+  .service-content {
+    flex: 1;
+    padding-left: 1rem; /* Add some padding between the image and the text content */
+  }
+}
+
+@media (max-width: 480px) {
+  .service-card {
+    flex-direction: column;
+  }
+
+  .service-image {
+    width: 100%;
+    max-height: 150px; /* Even smaller max-height for small screens */
+  }
+
+  .service-title,
+  .service-description {
+    font-size: 0.8rem; /* Adjust the font size for very small screens */
+  }
+}
