@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import CertificationServiceCard from '../Card/CertificationServiceCard';
 import AddCardButton from '../AddCardButton/AddCardButton';
 import CardForm from '../CardForm/CardForm';
-import RemoveButton from '../RemoveButton/RemoveButton'; // Убедитесь, что компонент импортирован
+import RemoveButton from '../RemoveButton/RemoveButton';
+import EditButton from '../EditButton/EditButton'; // Предполагается, что у вас есть такой компонент
 import './style.css';
 
 function CertificationServicesPage() {
     const [services, setServices] = useState([]);
-    const [selectedIds, setSelectedIds] = useState(new Set()); // Для отслеживания выбранных карточек
+    const [selectedIds, setSelectedIds] = useState(new Set());
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingService, setEditingService] = useState(null);
 
     useEffect(() => {
         fetch('/data/certification-services.json')
@@ -17,13 +19,34 @@ function CertificationServicesPage() {
             .catch(error => console.error("Ошибка при загрузке сервисов:", error));
     }, []);
 
-    const addService = (service) => {
-        setServices(prevServices => [...prevServices, { ...service, id: Date.now() }]);
+    const addOrUpdateService = (serviceData, id) => {
+        if (id) {
+            // Обновляем существующую карточку
+            setServices(prevServices =>
+                prevServices.map(service => service.id === id ? { ...service, ...serviceData } : service)
+            );
+        } else {
+            // Добавляем новую карточку
+            setServices(prevServices => [...prevServices, { ...serviceData, id: Date.now() }]);
+        }
         setIsFormOpen(false);
+        setEditingService(null);
     };
 
     const handleAddClick = () => {
+        setEditingService(null);
         setIsFormOpen(true);
+    };
+
+    const handleEditClick = () => {
+        const selectedIdArray = Array.from(selectedIds);
+        if (selectedIdArray.length === 1) {
+            const serviceToEdit = services.find(service => service.id === selectedIdArray[0]);
+            setEditingService(serviceToEdit);
+            setIsFormOpen(true);
+        } else {
+            alert("Выберите одну карточку для редактирования");
+        }
     };
 
     const toggleSelect = (id) => {
@@ -39,17 +62,20 @@ function CertificationServicesPage() {
     };
 
     const removeSelectedServices = () => {
-        setServices(services.filter(service => !selectedIds.has(service.id)));
-        setSelectedIds(new Set()); // Очистить выбранные ID после удаления
+        setServices(prevServices => prevServices.filter(service => !selectedIds.has(service.id)));
+        setSelectedIds(new Set());
     };
 
     return ( 
         <div className="services-container">
             <div className='button-container'>
                 <AddCardButton onAddClick={handleAddClick} />
-                {isFormOpen && <CardForm onSave={addService} />}
+                <EditButton onEditClick={handleEditClick} isDisabled={selectedIds.size !== 1} />
                 <RemoveButton onRemoveClick={removeSelectedServices} />
             </div>
+            {isFormOpen && (
+                <CardForm onSave={addOrUpdateService} existingService={editingService} />
+            )}
             <div className='card-container'>
                 {services.map(service => (
                     <CertificationServiceCard 
@@ -64,4 +90,4 @@ function CertificationServicesPage() {
     );
 }
 
-export default CertificationServicesPage; 
+export default CertificationServicesPage;

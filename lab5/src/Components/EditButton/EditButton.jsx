@@ -1,9 +1,10 @@
-function EditButton({ onEditClick, isOneCardSelected }) {
-    return (
-      <button onClick={onEditClick} disabled={!isOneCardSelected}>
-        Редактировать
+function EditButton({ onEditClick, isDisabled }) {
+  return (
+      <button onClick={onEditClick} disabled={isDisabled}>
+          Редактировать
       </button>
-    );
+  );
 }
+
 
 export default EditButton;

@@ -1,46 +1,61 @@
-import React, { useState } from 'react';
-import './style.css'
+import React, { useState, useEffect } from 'react';
+import './style.css';
 
-function CardForm({ onSave }) {
+function CardForm({ onSave, existingService, isEditing }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
-    const [features, setFeatures] = useState(['']); // Начальное состояние для особенностей
+    const [features, setFeatures] = useState(['']);
 
-    // Обработчик отправки формы
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        onSave({ name, description, image, features: features.filter(f => f) }); // Отфильтровываем пустые строки
-        // Сброс состояний формы после сохранения
-        setName('');
-        setDescription('');
-        setImage('');
-        setFeatures(['']); // Сброс к одной пустой особенности
-    };
+    useEffect(() => {
+        // Если редактируем данные существующей карточки, инициализируем состояния этими данными
+        if (isEditing && existingService) {
+            setName(existingService.name);
+            setDescription(existingService.description);
+            setImage(existingService.image);
+            setFeatures(existingService.features || ['']);
+        }
+    }, [isEditing, existingService]);
 
-    // Обработчик изменения изображения
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => setImage(reader.result);
-        if (file) reader.readAsDataURL(file);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => setImage(reader.result);
+            reader.readAsDataURL(file);
+        }
     };
 
-    // Обработчик изменения полей особенностей
     const handleFeatureChange = (index, value) => {
         const updatedFeatures = [...features];
         updatedFeatures[index] = value;
         setFeatures(updatedFeatures);
     };
 
-    // Добавить поле особенности
     const addFeature = () => {
         setFeatures([...features, '']);
     };
 
-    // Удалить поле особенности
     const removeFeature = (index) => {
         setFeatures(features.filter((_, i) => i !== index));
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        onSave({
+            name,
+            description,
+            image,
+            features: features.filter(f => f)
+        }, existingService ? existingService.id : null);
+
+        // Сброс формы, если добавляем новую карточку
+        if (!isEditing) {
+            setName('');
+            setDescription('');
+            setImage('');
+            setFeatures(['']);
+        }
     };
 
     return (
@@ -62,7 +77,6 @@ function CardForm({ onSave }) {
             <input
                 type="file"
                 onChange={handleImageChange}
-                required
             />
             <div className="features">
                 {features.map((feature, index) => (
@@ -72,18 +86,20 @@ function CardForm({ onSave }) {
                             value={feature}
                             onChange={(e) => handleFeatureChange(index, e.target.value)}
                             placeholder={`Особенность ${index + 1}`}
-                            required={features.length === 1} // Только первая особенность обязательна
+                            required={features.length === 1}
                         />
-                        <button type="button" onClick={() => removeFeature(index)}>
-                            Удалить
-                        </button>
+                        {features.length > 1 && (
+                            <button type="button" onClick={() => removeFeature(index)}>
+                                Удалить
+                            </button>
+                        )}
                     </div>
                 ))}
                 <button type="button" onClick={addFeature}>
                     Добавить особенность
                 </button>
             </div>
-            <button type="submit">Сохранить карточку</button>
+            <button type="submit">{isEditing ? 'Обновить' : 'Добавить'} карточку</button>
         </form>
     );
 }
