@@ -1,67 +1,65 @@
 .card-form {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-form input[type="text"],
-  .card-form input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
-  }
-  
-  .card-form .features {
-    margin-bottom: 10px;
-  }
-  
-  .card-form .feature-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .card-form .feature-input input {
-    flex-grow: 1; /* Input field takes up remaining space */
-    margin-right: 8px; /* Spacing between input field and button */
-  }
-  
-  .card-form button {
-    background-color: #f7f7f7;
-    color: #333;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .card-form button:hover {
-    background-color: #e7e7e7;
-  }
-  
-  .card-form button[type="submit"] {
-    background-color: #5cb85c; /* A green color for the submit button */
-    color: white;
-    margin-top: 10px; /* Space above the submit button */
-    width: 100%; /* Full width for emphasis */
-  }
-  
-  /* Styling for the 'Remove' and 'Add Feature' buttons */
-  .card-form button[type="button"] {
-    background-color: #f44336; /* A red color for remove button */
-    color: white;
-  }
-  
-  .card-form .add-feature-button {
-    background-color: #2196F3; /* A blue color for the add feature button */
-    color: white;
-    width: 100%;
-  }
-  
+  background-color: white; /* Белый фон */
+  padding: 20px; /* Внутренние отступы */
+  border-radius: 8px; /* Скругленные углы */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объемности */
+  width: 500px; /* Фиксированная ширина */
+  position: fixed; /* Позиционирование относительно вьюпорта */
+  top: 50%; /* Центрирование по вертикали */
+  left: 50%; /* Центрирование по горизонтали */
+  transform: translate(-50%, -50%); /* Точное центрирование с учетом размеров элемента */
+  z-index: 1000; /* Убедитесь, что модальное окно будет над другими элементами */
+}
+
+.card-form input[type="text"],
+.card-form input[type="file"] {
+  display: block; /* Блочное отображение */
+  margin-bottom: 10px; /* Отступ снизу для каждого элемента ввода */
+  width: calc(100% - 20px); /* Ширина с учетом padding */
+  padding: 10px; /* Внутренние отступы */
+  border: 1px solid #ccc; /* Граница */
+  border-radius: 4px; /* Скругление границ */
+}
+
+.card-form .features {
+  margin-bottom: 10px; /* Отступ снизу для блока особенностей */
+}
+
+.feature-input {
+  margin-bottom: 5px; /* Отступ между полями особенностей */
+}
+
+.feature-input button {
+  margin-left: 5px; /* Отступ слева от кнопки */
+}
+
+.card-form button {
+  background-color: #007bff; /* Синий фон для кнопок */
+  color: white; /* Белый текст */
+  padding: 10px 15px; /* Внутренние отступы */
+  border: none; /* Убрать границу */
+  border-radius: 4px; /* Скругление углов */
+  cursor: pointer; /* Курсор в виде указателя */
+  margin-top: 10px; /* Отступ сверху для кнопки */
+}
+
+.card-form button:hover {
+  background-color: #0056b3; /* Темно-синий фон при наведении */
+}
+
+/* Стиль для блока, который будет затемнять остальную часть страницы */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  z-index: 999; /* Немного меньше, чем у модального окна */
+  display: none; /* Скрыт по умолчанию */
+}
+
+/* Отображение затемняющего фона при активном модальном окне */
+.modal-active .modal-overlay {
+  display: block;
+}
