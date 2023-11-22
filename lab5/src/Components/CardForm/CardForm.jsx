@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './style.css';
+import './style.css'
 
 function CardForm({ onSave }) {
     const [name, setName] = useState('');

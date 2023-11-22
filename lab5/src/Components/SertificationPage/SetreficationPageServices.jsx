@@ -50,14 +50,16 @@ function CertificationServicesPage() {
                 {isFormOpen && <CardForm onSave={addService} />}
                 <RemoveButton onRemoveClick={removeSelectedServices} />
             </div>
-            {services.map(service => (
-                <CertificationServiceCard 
-                    key={service.id} 
-                    service={service} 
-                    isSelected={selectedIds.has(service.id)}
-                    toggleSelect={toggleSelect} 
-                />
-            ))}
+            <div className='card-container'>
+                {services.map(service => (
+                    <CertificationServiceCard 
+                        key={service.id} 
+                        service={service} 
+                        isSelected={selectedIds.has(service.id)}
+                        toggleSelect={toggleSelect} 
+                    />
+                ))}
+            </div>
         </div>
     );
 }
