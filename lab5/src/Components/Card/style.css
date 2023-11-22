@@ -31,6 +31,14 @@
   min-height: 3em; /* Adjust as needed */
 }
 
+/* Добавьте этот стиль в ваш файл style.css */
+
+.service-card.selected {
+  background-color: #e3f2fd; /* Светло-голубой фон для выбранных карточек */
+  border: 1px solid #2196f3; /* Синяя рамка для выделения */
+}
+
+
 /* Adjustments for very small screens */
 @media (max-width: 480px) {
   .service-card {

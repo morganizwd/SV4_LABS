@@ -1,0 +1,67 @@
+.card-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-form input[type="text"],
+  .card-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+  }
+  
+  .card-form .features {
+    margin-bottom: 10px;
+  }
+  
+  .card-form .feature-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .card-form .feature-input input {
+    flex-grow: 1; /* Input field takes up remaining space */
+    margin-right: 8px; /* Spacing between input field and button */
+  }
+  
+  .card-form button {
+    background-color: #f7f7f7;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .card-form button:hover {
+    background-color: #e7e7e7;
+  }
+  
+  .card-form button[type="submit"] {
+    background-color: #5cb85c; /* A green color for the submit button */
+    color: white;
+    margin-top: 10px; /* Space above the submit button */
+    width: 100%; /* Full width for emphasis */
+  }
+  
+  /* Styling for the 'Remove' and 'Add Feature' buttons */
+  .card-form button[type="button"] {
+    background-color: #f44336; /* A red color for remove button */
+    color: white;
+  }
+  
+  .card-form .add-feature-button {
+    background-color: #2196F3; /* A blue color for the add feature button */
+    color: white;
+    width: 100%;
+  }
+  
