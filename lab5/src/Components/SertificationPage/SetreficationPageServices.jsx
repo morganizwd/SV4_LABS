@@ -3,7 +3,7 @@ import CertificationServiceCard from '../Card/CertificationServiceCard';
 import AddCardButton from '../AddCardButton/AddCardButton';
 import CardForm from '../CardForm/CardForm';
 import RemoveButton from '../RemoveButton/RemoveButton';
-import EditButton from '../EditButton/EditButton'; // Предполагается, что у вас есть такой компонент
+import EditButton from '../EditButton/EditButton';
 import './style.css';
 
 function CertificationServicesPage() {
@@ -21,12 +21,10 @@ function CertificationServicesPage() {
 
     const addOrUpdateService = (serviceData, id) => {
         if (id) {
-            // Обновляем существующую карточку
             setServices(prevServices =>
                 prevServices.map(service => service.id === id ? { ...service, ...serviceData } : service)
             );
         } else {
-            // Добавляем новую карточку
             setServices(prevServices => [...prevServices, { ...serviceData, id: Date.now() }]);
         }
         setIsFormOpen(false);
@@ -74,7 +72,12 @@ function CertificationServicesPage() {
                 <RemoveButton onRemoveClick={removeSelectedServices} />
             </div>
             {isFormOpen && (
-                <CardForm onSave={addOrUpdateService} existingService={editingService} />
+                <CardForm 
+                    onSave={addOrUpdateService} 
+                    existingService={editingService} 
+                    isFormOpen={isFormOpen} 
+                    setIsFormOpen={setIsFormOpen}
+                />
             )}
             <div className='card-container'>
                 {services.map(service => (
