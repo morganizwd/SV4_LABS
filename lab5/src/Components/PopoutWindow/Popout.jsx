@@ -1,18 +1,29 @@
- import './style.css'
+import React from 'react';
+import { Dialog, DialogTitle, DialogContent, List, ListItem, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Popout({ service, closePopout }) {
     return (
-        <div className="popout-background" onClick={closePopout}>
-            <div className="popout-window" onClick={e => e.stopPropagation()}>
-                <button onClick={closePopout} aria-label="Close">&#10005;</button> 
-                <ul className="service-features">
-                    {service.features.map((feature, index) => (
-                        <li key={index} className="feature">{feature}</li>
+        <Dialog open={Boolean(service)} onClose={closePopout} aria-labelledby="popout-dialog-title">
+            <DialogTitle id="popout-dialog-title">
+                {service?.name}
+                <IconButton
+                    aria-label="close"
+                    onClick={closePopout}
+                    style={{ position: 'absolute', right: 8, top: 8 }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+            <DialogContent dividers>
+                <List>
+                    {service?.features.map((feature, index) => (
+                        <ListItem key={index}>{feature}</ListItem>
                     ))}
-                </ul>
-            </div>
-        </div>
+                </List>
+            </DialogContent>
+        </Dialog>
     );
-} 
+}
 
 export default Popout;

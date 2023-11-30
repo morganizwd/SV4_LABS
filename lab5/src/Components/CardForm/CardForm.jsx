@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './style.css';
+import { TextField, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Input } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CardForm({ onSave, existingService, isEditing, isFormOpen, setIsFormOpen }) {
     const [name, setName] = useState('');
@@ -61,53 +64,71 @@ function CardForm({ onSave, existingService, isEditing, isFormOpen, setIsFormOpe
     };
 
     return (
-        <>
-            {isFormOpen && (
-                <form onSubmit={handleSubmit} className="card-form">
-                    <button onClick={handleClose}>×</button>
-                    <input
-                        type="text"
+        <Dialog open={isFormOpen} onClose={handleClose}>
+            <DialogTitle>
+                {isEditing ? 'Редактировать Карточку' : 'Добавить Карточку'}
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    style={{ position: 'absolute', right: 8, top: 8 }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+            <form onSubmit={handleSubmit}>
+                <DialogContent>
+                    <TextField
+                        label="Название услуги"
+                        fullWidth
+                        margin="normal"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Название услуги"
                         required
                     />
-                    <input
-                        type="text"
+                    <TextField
+                        label="Описание"
+                        fullWidth
+                        margin="normal"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Описание"
                         required
                     />
-                    <input
+                    <Input
                         type="file"
                         onChange={handleImageChange}
+                        fullWidth
+                        margin="normal"
                     />
-                    <div className="features">
+                    <div>
                         {features.map((feature, index) => (
-                            <div key={index} className="feature-input">
-                                <input
-                                    type="text"
+                            <div key={index} style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+                                <TextField
+                                    label={`Особенность ${index + 1}`}
+                                    fullWidth
+                                    margin="normal"
                                     value={feature}
                                     onChange={(e) => handleFeatureChange(index, e.target.value)}
-                                    placeholder={`Особенность ${index + 1}`}
                                     required={features.length === 1}
                                 />
                                 {features.length > 1 && (
-                                    <button type="button" onClick={() => removeFeature(index)}>
-                                        Удалить
-                                    </button>
+                                    <IconButton onClick={() => removeFeature(index)}>
+                                        <DeleteIcon />
+                                    </IconButton>
                                 )}
                             </div>
                         ))}
-                        <button type="button" onClick={addFeature}>
+                        <Button startIcon={<AddCircleOutlineIcon />} onClick={addFeature}>
                             Добавить особенность
-                        </button>
+                        </Button>
                     </div>
-                    <button type="submit">{isEditing ? 'Обновить' : 'Добавить'} карточку</button>
-                </form>
-            )}
-        </>
+                </DialogContent>
+                <DialogActions>
+                    <Button type="submit" color="primary">
+                        {isEditing ? 'Обновить' : 'Добавить'}
+                    </Button>
+                </DialogActions>
+            </form>
+        </Dialog>
     );
 }
 
