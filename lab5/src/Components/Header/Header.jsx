@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './style.css';
+import { Link as RouterLink } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemText, Link } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,20 +11,39 @@ function Header() {
     };
 
     return (
-        <div className="header">
-            <ul className='logo'>
-                <li><strong>Все под контролем, брат</strong></li>
-            </ul>
-            <button className="hamburger" onClick={handleMenuToggle}>
-                &#9776; {/* This is a common icon for hamburger menus */}
-            </button>
-            <ul className={`content ${isMenuOpen ? "active" : ""}`}>
-                <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Главная</Link></li>
-                <li><Link to="/certification-services" onClick={() => setIsMenuOpen(false)}>Продукция</Link></li>
-                <li><Link to="/quality-control" onClick={() => setIsMenuOpen(false)}>Контроль качества</Link></li>
-            </ul>
-        </div>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" style={{ flexGrow: 1 }}>
+                    Все под контролем, брат
+                </Typography>
+                <Drawer
+                    anchor="right"
+                    open={isMenuOpen}
+                    onClose={() => setIsMenuOpen(false)}
+                >
+                    <List>
+                        <ListItem button component={RouterLink} to="/" onClick={() => setIsMenuOpen(false)}>
+                            <ListItemText primary="Главная" />
+                        </ListItem>
+                        <ListItem button component={RouterLink} to="/certification-services" onClick={() => setIsMenuOpen(false)}>
+                            <ListItemText primary="Продукция" />
+                        </ListItem>
+                        <ListItem button component={RouterLink} to="/quality-control" onClick={() => setIsMenuOpen(false)}>
+                            <ListItemText primary="Контроль качества" />
+                        </ListItem>
+                    </List>
+                </Drawer>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={handleMenuToggle}
+                >
+                    <MenuIcon />
+                </IconButton>
+            </Toolbar>
+        </AppBar>
     );
 }
 
-export default Header; 
+export default Header;
