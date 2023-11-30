@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import CertificationServiceCard from '../Card/CertificationServiceCard';
-import AddCardButton from '../AddCardButton/AddCardButton';
 import CardForm from '../CardForm/CardForm';
-import RemoveButton from '../RemoveButton/RemoveButton';
-import EditButton from '../EditButton/EditButton';
-import './style.css';
+import { Container, Grid, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CertificationServicesPage() {
     const [services, setServices] = useState([]);
@@ -65,12 +65,24 @@ function CertificationServicesPage() {
     };
 
     return ( 
-        <div className="services-container">
-            <div className='button-container'>
-                <AddCardButton onAddClick={handleAddClick} />
-                <EditButton onEditClick={handleEditClick} isDisabled={selectedIds.size !== 1} />
-                <RemoveButton onRemoveClick={removeSelectedServices} />
-            </div>
+        <Container maxWidth="lg">
+            <Grid container spacing={2} style={{ marginBottom: '20px' }}>
+                <Grid item>
+                    <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
+                        Добавить
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained" color="secondary" startIcon={<EditIcon />} onClick={handleEditClick} disabled={selectedIds.size !== 1}>
+                        Редактировать
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={removeSelectedServices}>
+                        Удалить
+                    </Button>
+                </Grid>
+            </Grid>
             {isFormOpen && (
                 <CardForm 
                     onSave={addOrUpdateService} 
@@ -79,17 +91,18 @@ function CertificationServicesPage() {
                     setIsFormOpen={setIsFormOpen}
                 />
             )}
-            <div className='card-container'>
+            <Grid container spacing={2}>
                 {services.map(service => (
-                    <CertificationServiceCard 
-                        key={service.id} 
-                        service={service} 
-                        isSelected={selectedIds.has(service.id)}
-                        toggleSelect={toggleSelect} 
-                    />
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={service.id}>
+                        <CertificationServiceCard 
+                            service={service} 
+                            isSelected={selectedIds.has(service.id)}
+                            toggleSelect={toggleSelect} 
+                        />
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     );
 }
 

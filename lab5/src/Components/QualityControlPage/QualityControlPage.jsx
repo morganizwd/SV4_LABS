@@ -1,25 +1,34 @@
 import React from 'react';
+import { Container, Typography, Paper } from '@mui/material';
 
 function QualityControlPage() {
     return (
-        <div className="quality-control-page">
-            <h1>Контроль качества</h1>
-            <p>На нашем предприятии контроль качества является ключевым аспектом производственного процесса...</p>
+        <Container>
+            <Typography variant="h3" component="h1" gutterBottom>
+                Контроль качества
+            </Typography>
+            <Typography variant="body1">
+                На нашем предприятии контроль качества является ключевым аспектом производственного процесса...
+            </Typography>
             
-            {/* Тут могут быть другие компоненты, например, графики или таблицы */}
+            {/* Другие компоненты, например, графики или таблицы */}
             
-            <section className="quality-metrics">
-                <h2>Метрики качества</h2>
+            <Paper style={{ padding: '20px', marginTop: '20px' }}>
+                <Typography variant="h4" component="h2" gutterBottom>
+                    Метрики качества
+                </Typography>
                 {/* Компонент с графиками или таблицами */}
-            </section>
+            </Paper>
             
-            <section className="case-studies">
-                <h2>Кейс-стади</h2>
+            <Paper style={{ padding: '20px', marginTop: '20px' }}>
+                <Typography variant="h4" component="h2" gutterBottom>
+                    Кейс-стади
+                </Typography>
                 {/* Компоненты с историями успеха */}
-            </section>
+            </Paper>
             
             {/* Другие секции */}
-        </div>
+        </Container>
     );
 }
 
