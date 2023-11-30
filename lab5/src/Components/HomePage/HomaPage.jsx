@@ -1,11 +1,16 @@
-import './style.css'
+import React from 'react';
+import { Container, Typography, Paper } from '@mui/material';
 
 function HomePage() {
     return (
-        <div className="home-page">
-            <h1>Добро пожаловать на наш сайт контроля качества!</h1>
-            <p>Здесь вы можете узнать всю информацию о качестве продукции нашего предприятия.</p>
-        </div>
+        <Container component={Paper} style={{ padding: '20px', marginTop: '20px' }}>
+            <Typography variant="h3" gutterBottom>
+                Добро пожаловать на наш сайт контроля качества!
+            </Typography>
+            <Typography variant="body1">
+                Здесь вы можете узнать всю информацию о качестве продукции нашего предприятия.
+            </Typography>
+        </Container>
     );
 }
 
